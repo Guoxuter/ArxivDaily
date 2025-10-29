@@ -39,6 +39,7 @@
    git remote add origin git@github.com:<your_name>/<your_repo>.git
    git push -u origin main
    ```
+
 2. 在仓库的 **Settings → Secrets and variables → Actions** 中添加下列 Secrets（若已存在可以点击条目右侧的 “Update secret” 按钮进行修改）：
     - `LLM_API_KEY`
     - `LLM_API_BASE`（如果不需要可设置为空字符串）
@@ -46,6 +47,7 @@
     - `CATEGORIES`
 
    如果需要替换或修正某个值，在 Secrets 列表中点击相应条目的 `Update secret`，重新填写后保存即可；若要删除则选择 `Remove secret`。
+
 3. 仓库已经内置 `.github/workflows/arxiv-daily.yml` 工作流，默认每天 UTC 时间 1:00 运行；你也可以在 Actions 页面手动触发 `workflow_dispatch`。
 4. 工作流步骤：
    - 安装依赖并运行 `python main.py`
