@@ -1,0 +1,7 @@
+arxiv
+openai
+pydantic
+python-dotenv
+requests
+scrapy
+tqdm
