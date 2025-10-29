@@ -39,11 +39,15 @@
    git remote add origin git@github.com:<your_name>/<your_repo>.git
    git push -u origin main
    ```
-2. 在仓库的 **Settings → Secrets and variables → Actions** 中添加下列 Secrets：
-   - `LLM_API_KEY`
-   - `LLM_API_BASE`（如果不需要可设置为空字符串）
-   - `KEY_WORDS`
-   - `CATEGORIES`
+
+2. 在仓库的 **Settings → Secrets and variables → Actions** 中添加下列 Secrets（若已存在可以点击条目右侧的 “Update secret” 按钮进行修改）：
+    - `LLM_API_KEY`
+    - `LLM_API_BASE`（如果不需要可设置为空字符串）
+    - `KEY_WORDS`
+    - `CATEGORIES`
+
+   如果需要替换或修正某个值，在 Secrets 列表中点击相应条目的 `Update secret`，重新填写后保存即可；若要删除则选择 `Remove secret`。
+
 3. 仓库已经内置 `.github/workflows/arxiv-daily.yml` 工作流，默认每天 UTC 时间 1:00 运行；你也可以在 Actions 页面手动触发 `workflow_dispatch`。
 4. 工作流步骤：
    - 安装依赖并运行 `python main.py`
@@ -66,6 +70,7 @@
 
 ## 常见问题
 - **没有配置 `KEY_WORDS` 或 `LLM_API_KEY` 时脚本会报错**：请确保在本地 `.env` 或 GitHub Secrets 中正确填写。
+- **依赖安装失败并提示 `ResolutionImpossible`**：通常是由于某些三方库的版本冲突，可删除本地或远端环境中的虚拟环境后重新执行 `pip install -r requirements.txt`，工作流中的依赖版本已经放宽，确保能够自动解析。
 - **工作流没有新提交**：若当日没有新论文或摘要内容未改变，`output/` 下不会产生变化，工作流会直接结束。
 
 欢迎在此基础上继续扩展，例如发送到飞书、钉钉或企业微信等。
