@@ -2,6 +2,14 @@
 
 自动化抓取 arXiv 论文、使用 LLM 筛选并输出 Markdown 摘要的管道。该仓库已经按照 [Video-Generation-arxiv-daily](https://github.com/KashiwaByte/Video-Generation-arxiv-daily/blob/main/docs/README.md#usage) 中的思路适配为 **GitHub Actions 每日运行并推送结果**。
 
+
+<!-- DAILY_SUMMARY_START -->
+## 📚 今日 arXiv 摘要（{summary_date}
+        
+<!-- DAILY_SUMMARY_END -->
+
+
+
 ## 功能概述
 - 按照环境变量中配置的分类抓取 arXiv 最新论文
 - 提取标题、摘要、作者、发布日期、PDF 链接等信息
