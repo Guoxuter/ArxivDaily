@@ -80,6 +80,7 @@ def update_readme(summary: str, summary_date: str) -> None:
 
     with open(readme_path, "w", encoding="utf-8") as readme_file:
         readme_file.write(updated_content)
+    print("Summary updated to readme")
 
 
 def main() -> None:
