@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import re
 from datetime import datetime
 
 import dotenv
@@ -34,7 +35,39 @@ def generate_daily_digest() -> str | None:
         file.write(summary)
 
     print(f"Summary saved to {file_path}")
+    update_readme(summary, today_str)
     return file_path
+
+
+def update_readme(summary: str, summary_date: str) -> None:
+    """Embed the latest daily summary at the top of the README file."""
+
+    readme_path = "README.md"
+    if not os.path.exists(readme_path):
+        return
+
+    summary_block = (
+        "<!-- DAILY_SUMMARY_START -->\n"
+        f"## 📚 今日 arXiv 摘要（{summary_date}）\n\n"
+        f"{summary.strip()}\n"
+        "<!-- DAILY_SUMMARY_END -->\n\n"
+    )
+
+    with open(readme_path, "r", encoding="utf-8") as readme_file:
+        readme_content = readme_file.read()
+
+    pattern = re.compile(
+        r"<!-- DAILY_SUMMARY_START -->.*?<!-- DAILY_SUMMARY_END -->\n?\n?",
+        flags=re.DOTALL,
+    )
+
+    if pattern.search(readme_content):
+        updated_content = pattern.sub(summary_block, readme_content, count=1)
+    else:
+        updated_content = summary_block + readme_content
+
+    with open(readme_path, "w", encoding="utf-8") as readme_file:
+        readme_file.write(updated_content)
 
 
 def main() -> None:
