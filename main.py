@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import os
 import re
+
 from datetime import datetime
 
 import dotenv
@@ -28,11 +29,22 @@ def generate_daily_digest() -> str | None:
     os.makedirs(output_dir, exist_ok=True)
 
     summary = llm_summary(papers)
-
+    markdown_pattern = r"```markdown(.*?)```"
+    match = re.search(markdown_pattern, summary, re.DOTALL)
+    
+    if match:
+        # 如果找到markdown代码块，提取其中的内容
+        format_summary = match.group(1).strip()
+    else:
+        # 如果没有找到markdown代码块，检查是否有普通的markdown内容
+        # 或者直接使用整个summary
+        format_summary = summary.relace("```markdown","\n").replace("```","\n")
+                
+    
     today_str = now.strftime("%Y-%m-%d")
     file_path = os.path.join(output_dir, f"summary_{today_str}.md")
     with open(file_path, "w", encoding="utf-8") as file:
-        file.write(summary)
+        file.write(format_summary)
 
     print(f"Summary saved to {file_path}")
     update_readme(summary, today_str)
