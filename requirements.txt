@@ -1,7 +1,8 @@
-arxiv==2.1.0
-openai>=1.35.9
-pydantic>=2.8
-python-dotenv>=1.0
-requests>=2.32
-scrapy>=2.11
-tqdm>=4.66
+arxiv
+openai
+pydantic
+python-dotenv
+requests
+scrapy
+tqdm
+
